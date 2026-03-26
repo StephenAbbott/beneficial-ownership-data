@@ -1,4 +1,4 @@
-# beneficial-ownership-data
+# Claude skill to understand beneficial ownership data
 Expert Claude skill for beneficial ownership data, Beneficial Ownership Data Standard, international policy context, and country-specific registers.
 
 Expert reference for beneficial ownership data, policy and the Beneficial Ownership Data Standard (BODS). 
