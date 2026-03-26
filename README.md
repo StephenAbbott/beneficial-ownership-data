@@ -7,6 +7,10 @@ Trigger whenever the topic touches on: BODS JSON (parsing, statement types, conv
 
 If the question is about who owns what — the data, tools, or policy around that — use this skill.
 
+• [Release v1.4 - Outstanding BODS feature requests and issues](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.4.0)
+
+• [Release v1.3 - Beneficial ownership declaration forms](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.3.0)
+
 • [Release v1.2 - Procurement and extractive sectors](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.2.0)
 
 • [Release v1.1 - Corporate ownership, not just beneficial ownership](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.1.0)
