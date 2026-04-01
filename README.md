@@ -7,6 +7,8 @@ Trigger whenever the topic touches on: BODS JSON (parsing, statement types, conv
 
 If the question is about who owns what — the data, tools, or policy around that — use this skill.
 
+• [Release v1.10.0 - Shorter skill description](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.10.0)
+
 • [Release v.1.9 - Recent BOT updates](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.9.0)
 
 • [Release v1.8 - FATF country pages and mutual evaluation reports](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.8.0)
