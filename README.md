@@ -7,6 +7,8 @@ Expert reference for beneficial ownership data, policy, and BODS. Trigger on: BO
 
 If the question is about who owns what — the data, tools, or policy around that — use this skill.
 
+• [Release v1.12.0 - Add Beneficial Ownership Visualisation System resources](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.12.0)
+
 • [Release v1.11.0 - Adding Neo4J UBO data demonstration](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.11.0)
 
 • [Release v1.10.0 - Shorter skill description](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.10.0)
