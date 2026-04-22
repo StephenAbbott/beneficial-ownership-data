@@ -7,7 +7,7 @@ Expert reference for beneficial ownership data, policy, and BODS. Trigger on: BO
 
 If the question is about who owns what — the data, tools, or policy around that — use this skill.
 
-• [Release v1.15.0 - Add BODS XML Github repo](https://github.com/StephenAbbott/bods-xml)
+• [Release v1.15.0 - Add BODS XML Github repo]((https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.15.0)
 
 • [Release v1.14.0 - Add more BODS-related repositories](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.14.0)
 
