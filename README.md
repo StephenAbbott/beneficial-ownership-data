@@ -1,5 +1,5 @@
 # Claude skill to understand beneficial ownership data
-Expert [Claude skill](https://code.claude.com/docs/en/skills) for beneficial ownership data, the [Beneficial Ownership Data Standard](https://standard.openownership.org/en/0.4.0/) (BODS), international policy context, and country-specific registers.
+Expert [Claude skill](https://code.claude.com/docs/en/skills) for beneficial ownership data, the [Beneficial Ownership Data Standard](https://standard.openownership.org/en/0.4.0/) (BODS), international policy context, and country-specific registers. Part of the [BODS Interoperability Toolkit](https://github.com/StephenAbbott/bods-interoperability-toolkit).
 
 Download [latest version](https://github.com/StephenAbbott/beneficial-ownership-data/releases).
 
