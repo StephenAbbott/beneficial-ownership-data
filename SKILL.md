@@ -1,6 +1,6 @@
 ---
 name: beneficial-ownership-data
-version: "1.15.0"
+version: "1.17.0"
 description: "Expert reference for beneficial ownership data, policy, and BODS. Trigger on: BODS JSON/schema/tools (bodsdata, CoVE-BODS, RDF/SPARQL, open issues), BO registries, FATF R24/R25, FATF mutual evaluations (MERs, FSRBs: APG/CFATF/MONEYVAL/ESAAMLG/MENAFATF/GIABA/EAG/GAFILAT), EU AML/AMLD6/AMLR/BORIS, country BO data (UK, Norway, France, Indonesia, Denmark, Canada/Ontario, Sri Lanka, BVI, Philippines, Ghana, Sweden), GLEIF, corporate data (OpenCorporates, Kyckr, Kausate, Sayari, ICIJ), FtM/OpenSanctions, Neo4j, BODS case studies (Latvia, Armenia, Nigeria), BO in procurement (OCDS, ChileCompra, Slovakia, PhilGEPS), BO in energy/extractives (EITI, GEM), BO in fisheries (GFW, FiTI), BO forms (Ghana, Namibia, PSC01), ICIJ/Panama Papers, BO reports (World Bank, TI, TI-UK), GODIN, UBO APIs (Kyckr, Kausate, KvK, Signicat, Companies House), BO verification (FATF, OECD toolkit, TJN), BOVS, or 2026 developments (BVI, Sri Lanka, Sweden, Ontario, Philippines, St Helena). If the question is about who owns what, use this skill."
 ---
 
@@ -60,6 +60,11 @@ Always fetch live documentation when you need precise schema details; the standa
 | bods-neo4j (BODS 0.4 ↔ Neo4j, bidirectional) | https://github.com/StephenAbbott/bods-neo4j |
 | bods-gql (BODS 0.4 → Google BigQuery / GQL) | https://github.com/StephenAbbott/bods-gql |
 | bods-xml (BODS 0.4 → XML: canonical + MRAS) | https://github.com/StephenAbbott/bods-xml |
+| bods-stream (live UK PSC → BODS v0.4, streaming) | https://github.com/StephenAbbott/bods-stream |
+| bods-stream (live demo) | https://bods-stream.onrender.com/ |
+| bods-mapper (shared CH PSC → BODS v0.4 library) | https://github.com/StephenAbbott/bods-mapper |
+| opencheck (CDD tool: LEI → 29 sources → BODS v0.4) | https://github.com/StephenAbbott/opencheck |
+| opencheck (live demo) | https://opencheck.onrender.com/ |
 
 ### GLEIF → BODS 0.4
 | Resource | URL |
@@ -597,6 +602,81 @@ Note: this is Stephen's BODS-native converter. For the broader Neo4j + UK Compan
 **Architecture**: extensible profile system — additional output profiles (BORIS, XBRL, etc.) can be added as modules alongside the existing two.
 
 **CLI**: `cli.py` | **Input**: BODS 0.4 JSON or JSONL | **Output**: XML | **Tests**: 31
+
+### bods-stream
+**Type**: Live streaming web application — UK beneficial ownership changes in real time as BODS v0.4.
+
+**Repo**: https://github.com/StephenAbbott/bods-stream
+**Live demo**: https://bods-stream.onrender.com/
+
+Consumes the **Companies House PSC Streaming API** and converts every live PSC (Person with Significant Control) filing event into BODS v0.4 statements the moment it's filed — displayed as a BOVS diagram with the raw Companies House event and the mapped BODS statements side by side.
+
+This is notable because almost no beneficial ownership registers offer a streaming API. The UK PSC stream is the standout public exception, and BODS is purpose-built to represent change (`recordStatus` new/updated/closed, `replacesStatements`, append-only). bods-stream makes that change model visible live.
+
+**What you see per event**:
+- BOVS diagram: interested party → subject company, interest type on the edge, jurisdiction/nationality flags, identity-verification tick, tinted by lifecycle
+- Lifecycle badge: `NEW` / `UPDATED` / `CEASED` (driven by BODS `recordStatus`)
+- Risk signals (structural, no external calls): FATF black/grey list, non-EU jurisdiction, trust/arrangement, nominee, super-secure (opaque), sanctioned flag
+- Prolific PSC signal: flags when one person appears as PSC of multiple companies in the session
+- Live insight bar: individual vs corporate split, cessation rate, identity-verification rate, prolific PSC of the day
+- Top-20 PSC nationalities (live flag tally)
+- Pause/play with live event counter
+
+**Architecture**: FastAPI backend (SSE relay — one long-lived CH stream connection, fan-out to many browsers) + React/Vite frontend. Single-process, in-memory state (lifecycle tracking, prolific tracker); nothing persisted to disk.
+
+**Lifecycle handling**: The CH stream has no new/updated/closed concept. bods-stream maintains an in-memory map keyed on `resource_uri` (stable PSC id) to emit correct `recordStatus` values and `replacesStatements` references, including reconstructing a `closed` record from last-seen state when a deletion event arrives.
+
+**Privacy**: Address and date of birth stripped at ingress — never broadcast or shown in UI. Date of birth used only briefly in-process for the prolific disambiguator.
+
+**Key dependency**: [bods-mapper](https://github.com/StephenAbbott/bods-mapper) — a separate shared repo containing the core Companies House → BODS v0.4 mapping logic, used by both bods-stream and [OpenCheck](https://github.com/StephenAbbott/opencheck) to prevent the two apps drifting.
+
+**Replay mode**: Set `BODS_STREAM_REPLAY_FILE` to a captured `.jsonl` to feed pre-recorded events through the live pipeline (useful outside UK office hours when the live feed is quiet).
+
+**Deployment**: Docker image builds frontend and serves it with the API (same origin). Deployed on Render via `render.yaml`. Must run as one instance/one worker (in-memory state).
+
+### bods-mapper
+**Type**: Shared Python library — canonical UK Companies House PSC → BODS v0.4 mapping core.
+
+**Repo**: https://github.com/StephenAbbott/bods-mapper
+
+Extracted from OpenCheck so that both `opencheck` and `bods-stream` use one canonical mapper and cannot drift apart. Takes a single Companies House PSC streaming event (the `data` block is identical to the REST PSC endpoint response) and emits a BODS v0.4 bundle containing:
+- the **subject company** entity statement
+- the **interested party** — a `knownPerson` (individual PSC), entity statement (corporate/legal-person PSC), or `anonymousPerson` (super-secure PSC)
+- an **ownership-or-control relationship** statement
+
+**Key features**:
+- All **86 official `natures_of_control` codes** mapped to valid BODS `interestType`, each with the official Companies House short descriptor in `interest.details`
+- **Cessation lifecycle**: a ceased PSC produces a relationship with `recordStatus: "closed"` — stable `recordId`, distinct `statementId`, `interest.endDate`, and `replacesStatements` pointing to the original `new` statement, per BODS information updates / record identifiers modelling rules
+- **Robust country handling**: emits a BODS `Country` `code` only when a valid 2-letter ISO code resolves
+
+**Public API**: `map_psc_event`, `company_number_from_uri`, `parse_nature`, `describe_nature`, `PSC_NATURE_DESCRIPTIONS`, `country_object`, statement factories (`make_entity_statement`, `make_person_statement`, `make_relationship_statement`), `BODSBundle`, `stable_id`, `validate_shape`
+
+**Requirements**: Python ≥ 3.10, `pycountry`. MIT license (vendored CH nature descriptors under OGL v3.0).
+
+### opencheck
+**Type**: Full customer due diligence (CDD) web application — LEI-powered, BODS v0.4 throughout.
+
+**Repo**: https://github.com/StephenAbbott/opencheck
+**Live demo**: https://opencheck.onrender.com/
+
+OpenCheck is a comprehensive open-source CDD tool that uses the Legal Entity Identifier as a connector spine to fan out across 29 national and international corporate data sources, mapping everything to BODS v0.4. Currently at Phase 50 (50 phases of active development, 337+ commits).
+
+**How it works**: paste a LEI → GLEIF lookup → derive every cross-source identifier available (Companies House number, Norwegian org number, Irish CRO, Finnish Y-tunnus, Latvian, Lithuanian, Estonian, Czech IČO, Polish KRS, Austrian Firmenbuchnummer, Slovak IČO, French SIREN, Dutch KvK, Swedish org number, Swiss UID, Canadian corp number, Belgian enterprise number, Danish CVR, Croatian MBS, Australian ACN/ABN, OpenCorporates ID, Wikidata Q-ID, and more) → fan out across all active adapters → assemble into a single BODS v0.4 bundle → apply risk signals → offer export.
+
+**National ID search** (Phase 50): look up any company by local registration number (CH number, KvK, orgnr, CVR, SIREN, etc.) — queries GLEIF's three registration-ID filter fields in parallel, scoped to the RA code. Covers 17 countries with active adapters.
+
+**Risk signal layer** (12 signals) — mirrors the EU AMLA draft CDD RTS conditions for "complex corporate structures":
+- Source-derived signals (nominee, super-secure/opaque, sanctioned flag)
+- AMLA CDD RTS signals (trust/arrangement, non-EU jurisdiction, ≥3 ownership layers, composite threshold rule, subjective obfuscation advisory)
+- FATF jurisdiction (black/grey list)
+- Cross-source name match discrepancies
+- ICIJ Offshore Leaks match
+
+**Export formats**: JSON / JSONL / XML / ZIP (downloaded bundle includes `LICENSES.md` listing every contributing source).
+
+**Architecture**: FastAPI backend (Python 63%) + React/TypeScript frontend, cache-first dispatch (stub mode without API keys, live mode opt-in per source via env vars). Uses `bods-dagre` for BOVS ownership diagrams and `bods-mapper` for CH PSC → BODS mapping.
+
+**Roadmap**: live opentender.eu procurement integration; BODS RDF/SPARQL backbone via Oxigraph (load assembled BODS bundle into triple store, expose `/sparql` for Open Ownership red-flag queries).
 
 ### bods-gql
 **Conversion**: BODS 0.4 → Google BigQuery property graph, queryable with GQL (ISO/IEC 39075).
