@@ -1,6 +1,6 @@
 ---
 name: beneficial-ownership-data
-version: "1.17.0"
+version: "1.18.0"
 description: "Expert reference for beneficial ownership data, policy, and BODS. Trigger on: BODS JSON/schema/tools (bodsdata, CoVE-BODS, RDF/SPARQL, open issues), BO registries, FATF R24/R25, FATF mutual evaluations (MERs, FSRBs: APG/CFATF/MONEYVAL/ESAAMLG/MENAFATF/GIABA/EAG/GAFILAT), EU AML/AMLD6/AMLR/BORIS, country BO data (UK, Norway, France, Indonesia, Denmark, Canada/Ontario, Sri Lanka, BVI, Philippines, Ghana, Sweden), GLEIF, corporate data (OpenCorporates, Kyckr, Kausate, Sayari, ICIJ), FtM/OpenSanctions, Neo4j, BODS case studies (Latvia, Armenia, Nigeria), BO in procurement (OCDS, ChileCompra, Slovakia, PhilGEPS), BO in energy/extractives (EITI, GEM), BO in fisheries (GFW, FiTI), BO forms (Ghana, Namibia, PSC01), ICIJ/Panama Papers, BO reports (World Bank, TI, TI-UK), GODIN, UBO APIs (Kyckr, Kausate, KvK, Signicat, Companies House), BO verification (FATF, OECD toolkit, TJN), BOVS, or 2026 developments (BVI, Sri Lanka, Sweden, Ontario, Philippines, St Helena). If the question is about who owns what, use this skill."
 ---
 
@@ -17,10 +17,12 @@ Always fetch live documentation when you need precise schema details; the standa
 ### BODS Standard & Tools
 | Resource | URL |
 |---|---|
-| BODS 0.4 documentation | https://standard.openownership.org/en/0.4.0/ |
-| BODS schema concepts | https://standard.openownership.org/en/0.4.0/standard/concepts.html |
-| BODS schema reference | https://standard.openownership.org/en/0.4.0/standard/reference.html |
-| BODS examples | https://standard.openownership.org/en/latest/examples/ |
+| BODS documentation (current — `main` branch) | https://standard.openownership.org/en/main/ |
+| BODS 0.4 release branch (frozen, translated) | https://standard.openownership.org/en/0.4.0/ |
+| BODS schema reference | https://standard.openownership.org/en/main/standard/reference.html |
+| BODS schema browser | https://standard.openownership.org/en/main/standard/schema-browser.html |
+| BODS changelog | https://standard.openownership.org/en/main/standard/changelog.html |
+| BODS examples | https://standard.openownership.org/en/main/examples/ |
 | OpenOwnership website | https://www.openownership.org/en/ |
 | OpenOwnership publications | https://www.openownership.org/en/publications/ |
 | OpenOwnership GitHub org | https://github.com/orgs/openownership/repositories |
@@ -47,6 +49,23 @@ Always fetch live documentation when you need precise schema details; the standa
 | BODS RDF Turtle 0.4 | https://vocab.openownership.org/terms/bods-vocabulary-0.4.0.ttl |
 | BODS data explorer | https://bods-data.openownership.org/ |
 | RDF blog post | https://www.openownership.org/en/blog/updating-the-beneficial-ownership-data-standard-rdf-vocabulary-to-help-linked-data-users/ |
+
+### BODS Primer, About & Governance (rewritten 2026)
+| Resource | URL |
+|---|---|
+| Primer index | https://standard.openownership.org/en/main/primer/index.html |
+| What is beneficial ownership? | https://standard.openownership.org/en/main/primer/whatisbo.html |
+| What is BODS? | https://standard.openownership.org/en/main/primer/whatisbods.html |
+| Key concepts in BODS data | https://standard.openownership.org/en/main/primer/concepts.html |
+| What is the BODS data model? (UML) | https://standard.openownership.org/en/main/primer/datamodel.html |
+| About BODS | https://standard.openownership.org/en/main/about/index.html |
+| Governance and development | https://standard.openownership.org/en/main/about/governance.html |
+| Credits | https://standard.openownership.org/en/main/about/credits.html |
+| BODS development handbook (site) | https://openownership.github.io/bods-dev-handbook/ |
+| BODS development handbook (repo) | https://github.com/openownership/bods-dev-handbook |
+| BODS feature tracker | https://github.com/openownership/data-standard/projects/4 |
+| Implementation proposals (Discussions) | https://github.com/openownership/data-standard/discussions/categories/feature-implementation |
+| Issue templates (feature request / bug) | https://github.com/openownership/data-standard/issues/new/choose |
 
 ### Stephen's BODS Conversion Repositories
 | Resource | URL |
@@ -480,6 +499,86 @@ Key fields: `statementId`, `statementType: "ownershipOrControlStatement"`, `subj
 - **Temporal versioning**: multiple statements can describe the same entity over time; use `replacesStatements[]` to link them
 
 A BODS dataset is a JSON array of statement objects. There is no wrapping container object — just a flat array.
+
+---
+
+## BODS Documentation Rewrite and Current Status (2026)
+
+In 2026 Open Ownership and Open Data Services published a substantial rewrite of the BODS **non-normative** documentation — the Primer, About and Governance pages — via PRs [#754](https://github.com/openownership/data-standard/pull/754) and [#762](https://github.com/openownership/data-standard/pull/762). **No schema, field, codelist or changelog changes were made**: this was a documentation-only update, not a version release.
+
+### Critical: which URL to cite
+
+The default and `latest` documentation URLs now resolve to the **`main` branch**, not the `0.4.0` release branch:
+
+| URL | Resolves to | Use for |
+|---|---|---|
+| `standard.openownership.org` | `/en/main` | General linking — gets latest docs |
+| `standard.openownership.org/en/main/` | `main` branch | Current Primer/About/Governance content |
+| `standard.openownership.org/en/latest/` | `/en/main` | Same as default |
+| `standard.openownership.org/en/0.4.0/` | `0.4.0` release branch | The frozen, translated v0.4 release |
+
+The documentation updates were merged to `main` and **deliberately not back-ported** to the `0.4.0` release branch. The v0.4 release was translated into **Spanish, French and Russian**; these subsequent documentation updates were **not** translated. So when citing the standard, prefer `/en/main/` for conceptual and governance material, and `/en/0.4.0/` only when you specifically need the frozen release or a translated version.
+
+### Current development status
+
+Both the README and the About page now state plainly: **"BODS is not in active development at the moment."**
+
+- BODS v0.4 was released **May 2024**
+- Implementers should be aware that **future changes may be made before a version 1.0 release**
+- From v1.0 onwards, any structural or major definitional changes will only take place following consultation
+- If work resumes towards v1.0, governance processes will be updated by Open Ownership (stewarding organisation) and Open Data Services (technical maintainer), in consultation with the community
+
+This is a material point for anyone advising on BODS adoption: the standard is stable and usable, but not currently being actively extended, and pre-1.0 breaking changes remain possible.
+
+### The rewritten Primer
+
+The Primer is now four pages, structured by audience:
+
+| Page | Audience | URL |
+|---|---|---|
+| What is beneficial ownership? | People new to the BO concept | https://standard.openownership.org/en/main/primer/whatisbo.html |
+| What is BODS? | Those needing to understand the standard | https://standard.openownership.org/en/main/primer/whatisbods.html |
+| What key concepts are represented in BODS data? | Conceptual grounding | https://standard.openownership.org/en/main/primer/concepts.html |
+| What is the BODS data model? | Technology teams | https://standard.openownership.org/en/main/primer/datamodel.html |
+
+### The data model page: UML class diagram and pseudo-objects
+
+The new `datamodel.rst` page introduces a **UML class diagram** (`BODS-classes.svg`) — the clearest formal statement yet of the BODS object model. Key points worth knowing:
+
+**Core objects (implemented in JSON Schema)**: Statements, Persons, Entities, Relationships, Interests.
+
+**Pseudo-objects (NOT implemented as objects in JSON Schema — they are implicit)**: **Declaration** and **Record**. This is an important and easily-missed distinction. The `declaration` and `declarationSubject` properties exist as properties *of Statements* in the JSON schema, but conceptually belong to the Declaration pseudo-object. Similarly `recordId`, `recordType` and `recordStatus` are Statement properties implementing the implicit Record.
+
+**Model relationships**:
+- A Declaration contains one or more Statements; a Declaration has one Record as its subject
+- A Statement is about a single Record, though a Record can be referenced from multiple Statements
+- A Record captures information about a Person, an Entity, or a Relationship
+- A Relationship's `interestedParty` may be a single Person or a single Entity; its `subject` is always a single Entity
+- A Relationship consists of zero or more Interests; an Interest belongs to a single Relationship
+
+**Four network shapes the model supports** (each with its own diagram):
+1. The legal vehicles a person controls (top-down tree)
+2. The people controlling a legal vehicle (bottom-up tree)
+3. The people controlling a set of legal vehicles (non-tree graph)
+4. Corporate structures without people (entity-only graph)
+
+**Bi-temporal modelling**: the page explicitly frames Statements as enabling ledger-like histories answering "who knew what, when?" — linking to the [bi-temporal modelling](https://en.wikipedia.org/wiki/Bitemporal_Modeling) concept. Statements from different sources may conflict or overlap, and this is by design.
+
+**No intrinsic definition of 'beneficial owner'**: the data model deliberately embeds no definition of beneficial ownership. It describes networks of ownership, control and benefit. Where a relationship is known to constitute beneficial ownership under a particular jurisdiction's definition, `beneficialOwnershipOrControl` is set to `true` on the relevant interest. This is central to why BODS works across jurisdictions with differing BO thresholds and definitions.
+
+**Not an ERD**: the page is explicit that the data model is not an entity relationship diagram and not a database design. A database need not have a statement table — or even use the concept of "statement" — to export BODS Statements. But the model can usefully inform the design of any system handling corporate structure or BO network data, regardless of whether BODS publication is the goal.
+
+### Rewritten governance and development
+
+The [Governance and development](https://standard.openownership.org/en/main/about/governance.html) page now documents the full process:
+
+- **Feature requests and bug reports**: via [issue templates](https://github.com/openownership/data-standard/issues/new/choose); OO and ODS respond via GitHub issue comments
+- **Feature development**: tickets are framed as *problem statements* focused on user-need gaps, tracked on the [feature tracker](https://github.com/openownership/data-standard/projects/4). Anyone may propose an implementation; proposals go through [GitHub Discussions](https://github.com/openownership/data-standard/discussions/categories/feature-implementation) with a minimum two-week community review. Without broad consensus, a proposal is suspended
+- **Release tracking**: each version gets a release tracker as a GitHub project; community gets at least two weeks to review and suggest changes. The [v0.4 release tracker](https://github.com/orgs/openownership/projects/4/views/1) is the reference example
+- **OpenStand principles**: BODS development aims to meet the five [OpenStand principles](https://open-stand.org/about-us/principles/) — due process, broad consensus, transparency, balance, openness
+- **BODS development handbook**: full details of development and decision-making processes now live at https://openownership.github.io/bods-dev-handbook/ (repo: https://github.com/openownership/bods-dev-handbook)
+
+Note: the previous README described a Data Standard Working Group with quarterly meetings and a Google group. That description has been **removed** from the current README and governance page — governance is now documented via the handbook and the GitHub-based processes above. Contact for BODS technical matters is **tech@openownership.org** (general support: support@openownership.org).
 
 ---
 
@@ -1862,8 +1961,9 @@ St Helena is a small jurisdiction (population ~4,500) with a correspondingly sma
 
 ## When you need more detail
 
-- **BODS schema**: https://standard.openownership.org/en/0.4.0/standard/reference.html
-- **BODS examples**: https://standard.openownership.org/en/latest/examples/
+- **BODS schema**: https://standard.openownership.org/en/main/standard/reference.html
+- **BODS examples**: https://standard.openownership.org/en/main/examples/
+- **BODS Primer / data model / governance**: https://standard.openownership.org/en/main/primer/index.html and https://standard.openownership.org/en/main/about/governance.html — note default and `/latest` URLs now resolve to `/en/main`, not `0.4.0`
 - **Visualisation spec**: https://github.com/openownership/visualisation-tool/blob/main/docs/spec.md
 - **All OpenOwnership repos**: https://github.com/orgs/openownership/repositories
 - **Regulatory detail**: read `references/regulatory-context.md`

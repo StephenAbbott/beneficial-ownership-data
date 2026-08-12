@@ -1,11 +1,13 @@
 # Claude skill to understand beneficial ownership data
-Expert [Claude skill](https://code.claude.com/docs/en/skills) for beneficial ownership data, the [Beneficial Ownership Data Standard](https://standard.openownership.org/en/0.4.0/) (BODS), international policy context, and country-specific registers. Part of the [BODS Interoperability Toolkit](https://github.com/StephenAbbott/bods-interoperability-toolkit).
+Expert [Claude skill](https://code.claude.com/docs/en/skills) for beneficial ownership data, the [Beneficial Ownership Data Standard](https://standard.openownership.org/en/main/) (BODS), international policy context, and country-specific registers. Part of the [BODS Interoperability Toolkit](https://github.com/StephenAbbott/bods-interoperability-toolkit).
 
 Download [latest version](https://github.com/StephenAbbott/beneficial-ownership-data/releases).
 
 Expert reference for beneficial ownership data, policy, and BODS. Trigger on: BODS JSON/schema/tools (bodsdata, CoVE-BODS, RDF/SPARQL, open issues), BO registries, FATF R24/R25, FATF mutual evaluations (MERs, FSRBs: APG/CFATF/MONEYVAL/ESAAMLG/MENAFATF/GIABA/EAG/GAFILAT), EU AML/AMLD6/AMLR/BORIS, country BO data (UK, Norway, France, Indonesia, Denmark, Canada/Ontario, Sri Lanka, BVI, Philippines, Ghana, Sweden), GLEIF, corporate data (OpenCorporates, Kyckr, Kausate, Sayari, ICIJ), FtM/OpenSanctions, Neo4j, BODS case studies (Latvia, Armenia, Nigeria), BO in procurement (OCDS, ChileCompra, Slovakia, PhilGEPS), BO in energy/extractives (EITI, GEM), BO in fisheries (GFW, FiTI), BO forms (Ghana, Namibia, PSC01), ICIJ/Panama Papers, BO reports (World Bank, TI, TI-UK), GODIN, UBO APIs (Kyckr, Kausate, KvK, Signicat, Companies House), BO verification (FATF, OECD toolkit, TJN), BOVS, or 2026 developments (BVI, Sri Lanka, Sweden, Ontario, Philippines, St Helena).
 
 If the question is about who owns what — the data, tools, or policy around that — use this skill.
+
+• [Release v1.17.0 - BODS documentation rewrite: Primer, About and Governance pages](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.17.0)
 
 • [Release v1.16.0 - Add BODS stream, BODS mapper and OpenCheck repos](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.16.0)
 
