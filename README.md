@@ -3,9 +3,20 @@ Expert [Claude skill](https://code.claude.com/docs/en/skills) for beneficial own
 
 Download [latest version](https://github.com/StephenAbbott/beneficial-ownership-data/releases).
 
-Expert reference for beneficial ownership data, policy, and BODS. Trigger on: BODS JSON/schema/tools (bodsdata, CoVE-BODS, RDF/SPARQL, open issues), BO registries, FATF R24/R25, FATF mutual evaluations (MERs, FSRBs: APG/CFATF/MONEYVAL/ESAAMLG/MENAFATF/GIABA/EAG/GAFILAT), EU AML/AMLD6/AMLR/BORIS, country BO data (UK, Norway, France, Indonesia, Denmark, Canada/Ontario, Sri Lanka, BVI, Philippines, Ghana, Sweden), GLEIF, corporate data (OpenCorporates, Kyckr, Kausate, Sayari, ICIJ), FtM/OpenSanctions, Neo4j, BODS case studies (Latvia, Armenia, Nigeria), BO in procurement (OCDS, ChileCompra, Slovakia, PhilGEPS), BO in energy/extractives (EITI, GEM), BO in fisheries (GFW, FiTI), BO forms (Ghana, Namibia, PSC01), ICIJ/Panama Papers, BO reports (World Bank, TI, TI-UK), GODIN, UBO APIs (Kyckr, Kausate, KvK, Signicat, Companies House), BO verification (FATF, OECD toolkit, TJN), BOVS, or 2026 developments (BVI, Sri Lanka, Sweden, Ontario, Philippines, St Helena).
+Expert reference for beneficial ownership data, policy and BODS. Trigger on: BODS JSON/schema/tools (CoVE-BODS, RDF/SPARQL, open issues, converters), BO registers and who may see them by country (public, legitimate interest, closed; Notion access status database), EU AML (AMLR, AMLD6 transposition and 2026 infringements, BORIS, BO formats regulation 2026/2354, AMLA CDD RTS), CJEU (Sovim, C-609/26), UK PSC/ECCTA/MLR, Crown Dependencies and Overseas Territories, Latin America, Switzerland, Japan, Korea, US CTA, FATF R24/R25, MERs/FSRBs, sanctions 50% rules (OFAC, EU, UK, Canada), register data reuse and licensing, GLEIF, MEIP, corporate data (OpenCorporates, Kyckr, Kausate, Sayari, ICIJ), FtM/OpenSanctions, Neo4j, OpenCheck and its MCP tools, integrated ownership (T-Rank), BO in procurement, extractives, energy and fisheries, BO forms, verification and discrepancy reporting, BOVS, case studies and reports.
 
 If the question is about who owns what — the data, tools, or policy around that — use this skill.
+
+## What is in the skill
+
+- `SKILL.md`: the main reference.
+- `references/bo-access-status.md`: who may see beneficial ownership data in 75 jurisdictions, dated and sourced (snapshot of 23 November 2026).
+- `references/regulatory-context.md`: EU AML package, 6AMLD transposition and infringements, CJEU, UK, Crown Dependencies and Overseas Territories, sanctions 50% rules, FATF.
+- `references/international-registers.md`: country registers as data sources, and what their licences allow.
+
+Claude reads the reference files only when a question needs them.
+
+• [Release v1.19.0 - BO access status for 75 jurisdictions, 2026 regulatory context, register reuse lessons from OpenCheck](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.19.0)
 
 • [Release v1.17.0 - BODS documentation rewrite: Primer, About and Governance pages](https://github.com/StephenAbbott/beneficial-ownership-data/releases/tag/v1.17.0)
 
