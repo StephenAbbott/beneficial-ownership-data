@@ -1,7 +1,7 @@
 ---
 name: beneficial-ownership-data
-version: "1.18.0"
-description: "Expert reference for beneficial ownership data, policy, and BODS. Trigger on: BODS JSON/schema/tools (bodsdata, CoVE-BODS, RDF/SPARQL, open issues), BO registries, FATF R24/R25, FATF mutual evaluations (MERs, FSRBs: APG/CFATF/MONEYVAL/ESAAMLG/MENAFATF/GIABA/EAG/GAFILAT), EU AML/AMLD6/AMLR/BORIS, country BO data (UK, Norway, France, Indonesia, Denmark, Canada/Ontario, Sri Lanka, BVI, Philippines, Ghana, Sweden), GLEIF, corporate data (OpenCorporates, Kyckr, Kausate, Sayari, ICIJ), FtM/OpenSanctions, Neo4j, BODS case studies (Latvia, Armenia, Nigeria), BO in procurement (OCDS, ChileCompra, Slovakia, PhilGEPS), BO in energy/extractives (EITI, GEM), BO in fisheries (GFW, FiTI), BO forms (Ghana, Namibia, PSC01), ICIJ/Panama Papers, BO reports (World Bank, TI, TI-UK), GODIN, UBO APIs (Kyckr, Kausate, KvK, Signicat, Companies House), BO verification (FATF, OECD toolkit, TJN), BOVS, or 2026 developments (BVI, Sri Lanka, Sweden, Ontario, Philippines, St Helena). If the question is about who owns what, use this skill."
+version: "1.19.0"
+description: "Expert reference for beneficial ownership data, policy and BODS. Trigger on: BODS JSON/schema/tools (CoVE-BODS, RDF/SPARQL, open issues, converters), BO registers and who may see them by country (public, legitimate interest, closed; Notion access status database), EU AML (AMLR, AMLD6 transposition and 2026 infringements, BORIS, BO formats regulation 2026/2354, AMLA CDD RTS), CJEU (Sovim, C-609/26), UK PSC/ECCTA/MLR, Crown Dependencies and Overseas Territories, Latin America, Switzerland, Japan, Korea, US CTA, FATF R24/R25, MERs/FSRBs, sanctions 50% rules (OFAC, EU, UK, Canada), register data reuse and licensing, GLEIF, MEIP, corporate data (OpenCorporates, Kyckr, Kausate, Sayari, ICIJ), FtM/OpenSanctions, Neo4j, OpenCheck and its MCP tools, integrated ownership (T-Rank), BO in procurement, extractives, energy and fisheries, BO forms, verification and discrepancy reporting, BOVS, case studies and reports. If the question is about who owns what, use this skill."
 ---
 
 # Beneficial Ownership Data — Expert Reference
@@ -9,6 +9,13 @@ description: "Expert reference for beneficial ownership data, policy, and BODS. 
 This skill covers the full beneficial ownership data landscape: the BODS technical standard, OpenOwnership's ecosystem of tools, the regulatory policy context (FATF, EU AML), country-specific register designs, international advocacy, mapping corporate data sources to BODS, interoperability with other data models, beneficial ownership in procurement, and beneficial ownership in extractives.
 
 **Important context**: This skill is used by Stephen Abbott Pugh — the original product owner of BODS at Open Ownership, now running the consultancy Understand Beneficial Ownership (beneficialownership.co.uk). His writing is at stephenabbottpugh.medium.com and beneficialownership.co.uk/news-articles-and-blog-posts. When helping Stephen, you can assume deep domain expertise on his part — be direct and specific rather than over-explaining fundamentals.
+
+**Reference files (load on demand).** Three files in `references/` hold the detail that changes fastest. Each fact in them carries a date and a source; check the date against today before calling anything current.
+- `references/bo-access-status.md`: who may see BO data in 75 jurisdictions (public, legitimate interest, restricted, authorities only, no register), with dates, pending changes and sources. A snapshot of Stephen's Notion *Beneficial ownership access status* database, 23 Nov 2026.
+- `references/regulatory-context.md`: EU AML package dates, the formats regulation and AMLA RTS, the September 2026 infringements state by state, CJEU cases, UK rules, Crown Dependencies and Overseas Territories, other jurisdictions, sanctions 50% rules, FATF wording, verification and discrepancy reporting.
+- `references/international-registers.md`: country registers as data sources (API, bulk files, identifiers, GLEIF RA codes) and what their licences and laws allow, as measured while building OpenCheck.
+
+**House wording.** FATF, the EU and AMLA *expect* ownership information to be verified against other reliable sources; never say they *require* cross-checking. FATF and the World Bank *point to* or *recognise* a standard; never *endorse*. Describe what a register publishes and since when; never call a jurisdiction secret, opaque or a haven.
 
 Always fetch live documentation when you need precise schema details; the standard is versioned and evolving.
 
@@ -82,8 +89,11 @@ Always fetch live documentation when you need precise schema details; the standa
 | bods-stream (live UK PSC → BODS v0.4, streaming) | https://github.com/StephenAbbott/bods-stream |
 | bods-stream (live demo) | https://bods-stream.onrender.com/ |
 | bods-mapper (shared CH PSC → BODS v0.4 library) | https://github.com/StephenAbbott/bods-mapper |
-| opencheck (CDD tool: LEI → 29 sources → BODS v0.4) | https://github.com/StephenAbbott/opencheck |
-| opencheck (live demo) | https://opencheck.onrender.com/ |
+| opencheck (open due diligence: LEI or register number → 74 open sources → BODS v0.4) | https://github.com/StephenAbbott/opencheck |
+| opencheck (live) | https://opencheck.world/ |
+| opencheck BODS datasets (Estonia, Azerbaijani Laundromat, monthly GLEIF series) | https://github.com/StephenAbbott/opencheck/releases |
+| opencheck: what is knowable per jurisdiction | https://github.com/StephenAbbott/opencheck/blob/main/docs/knowability.md |
+| BO access status database (Notion, Stephen's) | https://app.notion.com/p/ce531f47972f4b579ec6bc70d99c7830 |
 
 ### GLEIF → BODS 0.4
 | Resource | URL |
@@ -199,6 +209,11 @@ Always fetch live documentation when you need precise schema details; the standa
 |---|---|
 | Armenia BO register | https://old.e-register.am/en/ |
 | Botswana BO register (CIPA) | https://www.cipa.co.bw/master/ui/start/CIPARegisterSearch |
+| Gibraltar UBO public register (free since Feb 2026; moved 1 Oct 2026) | https://ubo.fsc.gi/ |
+| Ireland RBO (legitimate interest from 10 Nov 2026, SI 406/2026) | https://rbo.gov.ie/ |
+| Austria WiEReG register (legitimate interest from 5 Nov 2026) | https://www.bmf.gv.at/services/wiereg/berechtigtes-Interesse.html |
+| Ukraine Unified State Register (BO data, open) | https://usr.minjust.gov.ua/ |
+| Estonia e-Business Register (BO data public; open-data files) | https://ariregister.rik.ee/eng |
 | BVI BO register (legitimate interest — live 1 April 2026) | https://gov.vg/news/legitimate-interest-access-now-fully-operational-virgin-islands |
 | BVI FSC revised BO guidelines (Jan 2026) | https://www.bvifsc.vg/sites/default/files/revised_bo_guidelines_final_version_for_publication_02.01.26_0.pdf |
 | BVI FSC industry circular 11-2026 | https://www.bvifsc.vg/news/industry-updates/industry-circular-11-2026-launch-legitimate-interest-transactions-and-request |
@@ -221,6 +236,8 @@ Always fetch live documentation when you need precise schema details; the standa
 | EU AML Regulation 2024/1624 (AMLR) | https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401624 |
 | EU AMLD6 2024/1640 | https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401640 |
 | EC consultation on BO data formats | https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14851 |
+| Commission infringement package, 25 Sept 2026 (18 states, AMLD6 access articles) | https://ec.europa.eu/commission/presscorner/detail/en/inf_26_1834 |
+| CJEU C-609/26 Luxembourg Business Registers II (pending) | https://infocuria.curia.europa.eu/tabs/affair?lang=EN&searchTerm=%2522C%252D609%252F26%2522&publishedId=C-609%2F26 |
 | UK open standard for BO | https://www.gov.uk/government/publications/open-standards-for-government/collect-use-and-exchange-beneficial-ownership-information |
 | UK Anti-Corruption Strategy 2025 | https://www.gov.uk/government/publications/uk-anti-corruption-strategy-2025/uk-anti-corruption-strategy-2025-accessible |
 | DT4CA alliance | https://dt4calliance.eu/ |
@@ -307,6 +324,7 @@ Always fetch live documentation when you need precise schema details; the standa
 | Stephen's website | https://www.beneficialownership.co.uk/ |
 | Stephen's articles | https://www.beneficialownership.co.uk/news-articles-and-blog-posts |
 | Case studies (BODS in use) | https://www.beneficialownership.co.uk/case-studies |
+| OpenCheck blog (posts first published on Medium) | https://opencheck.world/blog |
 
 ### BODS Case Studies & Implementations
 Full case studies index: https://www.beneficialownership.co.uk/case-studies
@@ -753,29 +771,32 @@ Extracted from OpenCheck so that both `opencheck` and `bods-stream` use one cano
 **Requirements**: Python ≥ 3.10, `pycountry`. MIT license (vendored CH nature descriptors under OGL v3.0).
 
 ### opencheck
-**Type**: Full customer due diligence (CDD) web application — LEI-powered, BODS v0.4 throughout.
+**Type**: Open-source due diligence tool and MCP server, keyed on the LEI or a national register number, BODS v0.4 throughout.
 
 **Repo**: https://github.com/StephenAbbott/opencheck
-**Live demo**: https://opencheck.onrender.com/
+**Live**: https://opencheck.world/ (API at https://api.opencheck.world/)
 
-OpenCheck is a comprehensive open-source CDD tool that uses the Legal Entity Identifier as a connector spine to fan out across 29 national and international corporate data sources, mapping everything to BODS v0.4. Currently at Phase 50 (50 phases of active development, 337+ commits).
+OpenCheck reads **74 open sources** (Nov 2026: national company and BO registers, GLEIF, OpenSanctions, OpenAleph, ICIJ Offshore Leaks, Wikidata, EITI, GEM, OECD-UNSD MEIP, SEC EDGAR, procurement data) and assembles them into one BODS v0.4 graph. It had shipped more than 600 development phases by late November 2026.
 
-**How it works**: paste a LEI → GLEIF lookup → derive every cross-source identifier available (Companies House number, Norwegian org number, Irish CRO, Finnish Y-tunnus, Latvian, Lithuanian, Estonian, Czech IČO, Polish KRS, Austrian Firmenbuchnummer, Slovak IČO, French SIREN, Dutch KvK, Swedish org number, Swiss UID, Canadian corp number, Belgian enterprise number, Danish CVR, Croatian MBS, Australian ACN/ABN, OpenCorporates ID, Wikidata Q-ID, and more) → fan out across all active adapters → assemble into a single BODS v0.4 bundle → apply risk signals → offer export.
+**How it works**: a name, an LEI or a register number → GLEIF anchor (or the register itself for a company with no LEI) → every cross-source identifier GLEIF and the registers give → all adapters in parallel → one BODS v0.4 bundle → risk and context signals → a verdict sentence that names any source that did not answer.
 
-**National ID search** (Phase 50): look up any company by local registration number (CH number, KvK, orgnr, CVR, SIREN, etc.) — queries GLEIF's three registration-ID filter fields in parallel, scoped to the RA code. Covers 17 countries with active adapters.
+**Six check modes**: QuickCheck, FullCheck (the ownership network, layer by layer), BackgroundCheck (the people), Subsidiaries, History (change logs from the registers that keep one) and Climate & ESG.
 
-**Risk signal layer** (12 signals) — mirrors the EU AMLA draft CDD RTS conditions for "complex corporate structures":
-- Source-derived signals (nominee, super-secure/opaque, sanctioned flag)
-- AMLA CDD RTS signals (trust/arrangement, non-EU jurisdiction, ≥3 ownership layers, composite threshold rule, subjective obfuscation advisory)
-- FATF jurisdiction (black/grey list)
-- Cross-source name match discrepancies
-- ICIJ Offshore Leaks match
+**What it says, and how**:
+- *What is knowable*: each lookup carries a dated statement of what the subject's jurisdiction publishes about owners and who may see it, from the BO access status database. An absent owner is framed as the register's limit, not a finding.
+- *Disclosure status per source*: declared, exempt, not provided, none filed, restricted, unreachable, no record, and so on, so absence is never silent.
+- *Integrated ownership* (T-Rank method): the share each party holds along the chain, per source, never added across sources.
+- *Sanctions 50% test* per regime (OFAC, EU, UK, Canada), ownership limbs only; control is said to be not computed.
+- *Records compared*: where registers disagree on status or jurisdiction, and a draft discrepancy note to send the register.
+- Risk signals with `kind: risk | context` (sanctions, PEP, FATF and EU lists, state control, complex ownership layers, trusts, nominees, offshore leaks); a name-only match is "possible", never an identity.
 
-**Export formats**: JSON / JSONL / XML / ZIP (downloaded bundle includes `LICENSES.md` listing every contributing source).
+**MCP tools** (Claude connector): `opencheck_search`, `opencheck_resolve_national_id`, `opencheck_register_lookup`, `opencheck_knowability`, `opencheck_lookup`, `opencheck_owners`, `opencheck_ownership_map`, `opencheck_export_bods`, `opencheck_subsidiaries`, `opencheck_person_check`, `opencheck_person_positions`, `opencheck_save_report`, `opencheck_discrepancy_note`, `opencheck_batch_lookup`, `opencheck_list_sources`. Call `opencheck_knowability` before a lookup to set expectations; it costs nothing against the lookup budget.
 
-**Architecture**: FastAPI backend (Python 63%) + React/TypeScript frontend, cache-first dispatch (stub mode without API keys, live mode opt-in per source via env vars). Uses `bods-dagre` for BOVS ownership diagrams and `bods-mapper` for CH PSC → BODS mapping.
+**Outputs**: BODS JSON/JSONL, RDF, Senzing, FtM, Neo4j, BigQuery CSV, Google AML AI, PDF/Markdown reports, saved reports with a SHA-256, a watchlist that re-runs on GLEIF, OpenSanctions and register deltas. Every export carries `LICENSES.md` naming each contributing source's licence.
 
-**Roadmap**: live opentender.eu procurement integration; BODS RDF/SPARQL backbone via Oxigraph (load assembled BODS bundle into triple store, expose `/sparql` for Open Ownership red-flag queries).
+**Datasets**: Estonia (the whole e-Business Register ownership layer in BODS), the Azerbaijani Laundromat companies, and a monthly BODS series with a publication ledger (changes only; edition one is GLEIF). All on the repo's releases page.
+
+**Reuse lessons** from building it are in `references/international-registers.md`.
 
 ### bods-gql
 **Conversion**: BODS 0.4 → Google BigQuery property graph, queryable with GQL (ISO/IEC 39075).
@@ -1139,14 +1160,17 @@ Mutual evaluation reports are typically 200–400 pages and contain the most gra
 
 ### EU AML Package (2024)
 
-The EU adopted a sweeping new AML package in May 2024, effective from 2027:
-- **AMLR — Regulation 2024/1624**: Directly applicable rules for obliged entities (banks, lawyers, crypto). Lowers UBO threshold from >25% to ≥25% shareholding/voting rights. Requires multi-source verification of BO information.
-- **AMLD6 — Directive 2024/1640**: Member State rules for central BO registers. Registers must hold more data, cover more entity types including non-EU entities with EU business. Registers must interconnect via European Central Platform. Transposition deadline: 10 July 2026.
-- **EC consultation on BO data formats**: The Commission is consulting on standardised data formats for BO submissions to central registers — directly relevant to BODS adoption. See https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/14851
+Adopted May 2024. Full dates, the formats regulation, AMLA's RTS and the state-by-state transposition picture are in `references/regulatory-context.md`.
+- **AMLR — Regulation 2024/1624**: directly applicable rules for obliged entities; applies **10 July 2027**. BO threshold moves from >25% to **≥25%**. Obliged entities are expected to verify BO information against other reliable sources, not to rely on the register alone.
+- **AMLD6 — Directive 2024/1640**: member state rules for FIUs, supervisors and central registers. Transposition is staged: Art 74 by 10 July 2025; the access articles (Arts 11, 12, 13, 15: legitimate interest, presumed categories, procedure, exceptions) by **10 July 2026**; most of the rest by 10 July 2027.
+- **Infringements**: on 25 Sept 2026 the Commission sent letters of formal notice to **18** member states for the access articles (INF/26/1834); replies were due 25 Nov 2026. By 23 Nov only Austria had legitimate-interest access in force under the new rules (5 Nov 2026).
+- **BO submission formats**: Commission Implementing Regulation **(EU) 2026/2354**, published 22 Oct 2026, applies from 10 July 2027. It names no standard; Stephen's mapping finds 33 of 66 requirements map directly to BODS, 22 in part.
+- **AMLA CDD RTS** (AMLR Art 28(1)): final draft 1 Oct 2026; 34 of 57 requirements map directly to BODS, 13 in part.
+- **Register access by country**: `references/bo-access-status.md`.
 
 ### UK government endorsement of BODS
 
-The UK has formally adopted BODS as its open standard for beneficial ownership data: https://www.gov.uk/government/publications/open-standards-for-government/collect-use-and-exchange-beneficial-ownership-information
+The UK has formally adopted BODS as its open standard for beneficial ownership data (the gov.uk page still names v0.3 as of Nov 2026; v0.4 is current): https://www.gov.uk/government/publications/open-standards-for-government/collect-use-and-exchange-beneficial-ownership-information
 
 The UK Anti-Corruption Strategy 2025 includes commitments to push for international adoption of BODS.
 
@@ -1282,9 +1306,12 @@ These are examples of live public BO registers — useful as reference implement
 | Country/System | Register | Notes |
 |---|---|---|
 | Armenia | https://old.e-register.am/en/ | Early public BO register; BODS-aligned; company and BO data searchable online |
-| Botswana | https://www.cipa.co.bw/master/ui/start/CIPARegisterSearch | CIPA register; BODS data collection + visualisation library; online search |
+| Botswana | https://www.cipa.co.bw/master/ui/start/CIPARegisterSearch | CIPA register; BODS data collection + visualisation library; online search; 10% threshold. CIPA refused permission to republish its data (30 Oct 2026): do not reuse it |
 | Canada | https://ised-isde.canada.ca/cc/lgcy/fdrlCrpSrch.html?lang=eng | Corporations Canada federal register (live January 2024); BODS-powered; Bill C-42 mandate |
 | BVI | https://gov.vg/news/legitimate-interest-access-now-fully-operational-virgin-islands | Legitimate interest access live from 1 April 2026; one of the first UK Overseas Territories to go live |
+| Estonia | https://ariregister.rik.ee/eng | BO data public and free, with daily open-data files (companies, officers, shareholders, BOs); a planned restriction was postponed on 10 July 2026 and will now need a change to the law |
+| Gibraltar | https://ubo.fsc.gi/ | Public UBO register; search fees removed Feb 2026; moved to the FSC on 1 Oct 2026; no bulk access |
+| Ukraine | https://usr.minjust.gov.ua/ | Unified State Register with BO data, open data on data.gov.ua; addresses withheld under Law 4576-IX |
 | EU (BORIS) | https://webgate.ec.europa.eu/e-justice/searchBoris.do | Cross-border search of EU/EEA member state registers; Norway joined April 2026 as 17th connected jurisdiction; mostly paywalled |
 | Ghana | https://orc.dntsystems.net/beneficial-ownership/ | ORC BO register; Companies Act 2019; BO1–BO4 form suite |
 | Latvia | https://www.lursoft.lv/en/latvian-company-register | First country to publish national BO data in BODS (2021) |
@@ -1296,7 +1323,7 @@ These are examples of live public BO registers — useful as reference implement
 | St Helena | https://drive.proton.me/urls/WEC6VHS4DW#GmckfehJ8yk2 | UK Overseas Territory; public BO register delivered via a shared Proton Drive folder |
 | UK | https://find-and-update.company-information.service.gov.uk/ | Companies House PSC register; largest public BO dataset globally; canonical BODS reference implementation |
 
-For a global overview of BO register status by country, see the OpenOwnership map: https://www.openownership.org/en/map/
+For a global overview of BO register status by country, see the OpenOwnership map: https://www.openownership.org/en/map/. For who may see each register as of Nov 2026, with dates and sources, read `references/bo-access-status.md`.
 
 ---
 
@@ -1957,6 +1984,62 @@ The **St Helena** beneficial ownership register — for this UK Overseas Territo
 
 St Helena is a small jurisdiction (population ~4,500) with a correspondingly small number of registered companies, making a document-store approach more feasible than it would be for larger territories. It nonetheless represents a pragmatic implementation of the principle of public access to BO information, and demonstrates that public disclosure does not necessarily require bespoke technical infrastructure.
 
+### EU: 18 member states missed the access deadline (25 Sept 2026)
+
+On 25 September 2026 the Commission sent letters of formal notice to Austria, Belgium, Bulgaria, Croatia, Cyprus, Czechia, Estonia, Finland, France, Germany, Greece, Lithuania, Luxembourg, the Netherlands, Poland, Portugal, Romania and Spain for not notifying full transposition of AMLD6 Arts 11–13 and 15 (INF/26/1834). Replies were due 25 November 2026. By 23 November: Austria had legitimate-interest access in force (5 Nov 2026, BGBl. I Nr. 94/2026); Greece had passed Law 5354/2026 but its route was not open; Germany (Bundestag 12 Nov), Poland (Sejm 6 Nov) and the Netherlands (bill 20 Nov) had bills in parliament; Bulgaria had closed a consultation; Estonia had said it would change the law rather than issue a regulation. Detail per state: `references/regulatory-context.md`.
+
+### Ireland and Austria: legitimate-interest access opens (November 2026)
+
+**Austria** opened inspection on a legitimate interest on **5 November 2026** (WiEReG §10 and §10b; 12 working days; EU-wide validity). **Ireland**, not among the 18, opened its RBO to legitimate-interest applicants on **10 November 2026** under SI 406/2026 (three-year certificate, 12 working days). Earlier in 2026: Malta (LN 184/2026) and Slovakia from 10 July; Bermuda from 14 September.
+
+### Latvia: Constitutional Court moves AS shareholders out of public view (9 Nov 2026)
+
+The Constitutional Court (case 2024-01-01, judgment of 9 Nov 2026) put natural-person shareholders of joint-stock companies (AS) and the shareholders' register section into the non-public part of the file. The Register of Enterprises applied it from 19 Nov 2026. SIA members and beneficial owners are not affected; Latvia's BO data stays public.
+
+### Estonia: BO restriction postponed, now by a change to the law
+
+Estonia's planned move to legitimate-interest access, due 10 July 2026, was postponed on the day. ERR reported on 2 Nov 2026 that the Ministry of Finance will amend the law instead of issuing a regulation, vet applications itself and prioritise journalists. No draft or date. Until a law passes, Estonian BO data stays public, including in the open-data files.
+
+### Crown Dependencies and Overseas Territories (2026)
+
+Gibraltar's public UBO register dropped its search fees in February and moved to https://ubo.fsc.gi/ on 1 October 2026. Bermuda opened legitimate-interest access on 14 September 2026; Anguilla published a bill on 11 May 2026. On 18 November 2026 Jersey published a response paper (legislation to be drafted) and Guernsey agreed a legitimate-interest policy (Policy Letter early 2027).
+
+### Switzerland and Japan: new registers, not public
+
+Switzerland's federal transparency register for legal entities launched on 1 October 2026, open to authorities only. Japan submitted a BO register bill to the Diet on 23 October 2026.
+
+### EU formats regulation and AMLA's CDD RTS (Oct 2026)
+
+Commission Implementing Regulation (EU) 2026/2354 on BO submission formats was published on 22 October 2026 and applies from 10 July 2027; AMLA published its final draft CDD RTS on 1 October 2026. Neither names a data standard. Stephen's mappings: 33 of 66 formats requirements and 34 of 57 RTS requirements map directly to BODS.
+
+### Latin America: every BO register closed to the public (Aug 2026)
+
+The CEFILAT/FTC report *The Invisible Owners* (August 2026) covers 17 countries. All eleven that have a BO register (Argentina, Belize, Brazil, Colombia, Costa Rica, Ecuador, Nicaragua, Panama, Paraguay, Peru, Uruguay) open it only to the state and obliged entities. Chile has no BO register, but ChileCompra collects supplier BO declarations under Ley 21.634.
+
+### UK: mandatory EDD now follows the FATF black list only (30 June 2026)
+
+The Money Laundering and Terrorist Financing (Amendment) Regulations 2026 changed MLR reg 33(1)(b): mandatory enhanced due diligence applies to persons established in FATF "call for action" jurisdictions; the grey list is a risk factor. ECCTA identity verification for directors and PSCs has applied since 18 November 2025.
+
+### Canada: sanctions ownership guidance (14 Aug 2026)
+
+Global Affairs Canada's guidance page (created 14 Aug 2026) says listed persons' holdings are aggregated under SEMA s.2.1 and JVCFOA s.2.01: an entity is caught at 50% or more of shares or votes, or where listed persons can change its board or direct its activities. With OFAC (≥50%, aggregated), the EU (≥50%, aggregated) and the UK (>50%, per designated person), see `references/regulatory-context.md`.
+
+### FATF: a new approach for low-capacity countries (18 Nov 2026)
+
+FATF set out a new approach for low-capacity countries, framing AML/CFT within domestic revenue and development goals; in the least developed countries, 84% of assessed immediate outcomes were rated low effectiveness. Stephen's response: collecting ownership data once, in an open standard, lets the FIU, tax authority, procurement and EITI reuse it ("Cheaper by design", 20 Nov 2026).
+
+### Stephen's 2026 writing on OpenCheck and BO data
+
+| Date | Post |
+|---|---|
+| 5 Oct 2026 | [What an open ownership register adds: testing the UK PSC register against the OECD's Global Register](https://stephenabbottpugh.medium.com/what-an-open-ownership-register-adds-testing-the-uk-psc-register-against-the-oecds-global-register-b3e7374e3bbe) (PSC chains place 91.7% of MEIP's unknown UK subsidiaries in the same group; 69.3% reach the group head) |
+| 16 Oct 2026 | [Testing Estonia's beneficial ownership register against its own shareholder lists](https://stephenabbottpugh.medium.com/testing-estonias-beneficial-ownership-register-against-its-dbfb54c51702) (declared BOs match the integrated shareholder chain in 95.1% of 20,155 companies; Norway 84%) |
+| 4 Nov 2026 | [The EU has written down what a beneficial ownership data standard must hold](https://stephenabbottpugh.medium.com/the-eu-has-written-down-what-a-beneficial-ownership-data-standard-must-hold-9d59b015fa11) |
+| 10 Nov 2026 | [AMLA has listed the fields. Nobody has named the format](https://stephenabbottpugh.medium.com/amla-has-listed-the-fields-nobody-has-named-the-format-2c8c8da1c48a) |
+| 20 Nov 2026 | [Cheaper by design: open standards when aid budgets shrink](https://stephenabbottpugh.medium.com/cheaper-by-design-open-standards-when-aid-budgets-shrink-689208188404) |
+
+Other 2026 OpenCheck posts (open all the way down; Estonia's bulk files and APIs; the watchlist as perpetual KYC; provenance, "where did this come from and is it still true?"; agents as a new kind of reader) are on Stephen's Medium and at https://opencheck.world/blog.
+
 ---
 
 ## When you need more detail
@@ -1966,8 +2049,9 @@ St Helena is a small jurisdiction (population ~4,500) with a correspondingly sma
 - **BODS Primer / data model / governance**: https://standard.openownership.org/en/main/primer/index.html and https://standard.openownership.org/en/main/about/governance.html — note default and `/latest` URLs now resolve to `/en/main`, not `0.4.0`
 - **Visualisation spec**: https://github.com/openownership/visualisation-tool/blob/main/docs/spec.md
 - **All OpenOwnership repos**: https://github.com/orgs/openownership/repositories
-- **Regulatory detail**: read `references/regulatory-context.md`
-- **Country register APIs**: read `references/international-registers.md`
+- **Who may see BO data, per country (75 jurisdictions, dated)**: read `references/bo-access-status.md`; for the latest, query Stephen's Notion *Beneficial ownership access status* database or call `opencheck_knowability`
+- **Regulatory detail** (EU package dates, infringements, CJEU, UK, CDs/OTs, sanctions 50% rules, FATF): read `references/regulatory-context.md`
+- **Country register APIs, bulk data and reuse limits**: read `references/international-registers.md`
 - **Corporate data sources**: fetch live docs from Sayari, OpenCorporates, BrightQuery, InfobelPro URLs above
 - **GLEIF pipeline code**: https://github.com/openownership/bods-gleif-pipeline
 - **FtM/OpenSanctions conversion**: https://github.com/opensanctions/graph
@@ -1988,4 +2072,5 @@ St Helena is a small jurisdiction (population ~4,500) with a correspondingly sma
 - **Private sector/register UBO APIs**: Kyckr (CorporationUBO/IndividualUBO/OtherUBO schemas + bods-kyckr mapping), Kausate (extractUBOs), Netherlands KvK (Dataservice XML, IPD codes, access tiers), Sweden Bolagsverket, Signicat (Mint UBO lookup), UK Companies House PSC API (natures_of_control codelist)
 - **BO data verification**: OO verification principle + checklist + publication; FATF R24 section 7 (legal persons) + R25 section 4 (legal arrangements); OECD BO toolkits; Tax Justice Network; Moody's KYC; Latvia + Denmark country examples; BODS sourceType verified
 - **FATF mutual evaluations & country reports**: https://www.fatf-gafi.org/en/publications.html (filter by country); consolidated ratings spreadsheet; IO.5 + R.24/R.25 sections in MERs; follow-up reports; grey/black lists; FSRBs (APG, CFATF, MONEYVAL, ESAAMLG, MENAFATF, GIABA, EAG, GAFILAT, GABAC) — check FSRB websites for full reports on non-FATF members
-- **2026 register developments**: BVI legitimate interest (live 1 Apr 2026); Sri Lanka BO Registry Module + BO1–BO7 forms (live 30 Mar 2026); Sweden legitimate interest (from 1 Jul 2026); Norway 17th BORIS jurisdiction; Ontario BO registry by 2027; Philippines public BO for procurement; St Helena Proton Drive register
+- **2026 register developments**: BVI legitimate interest (live 1 Apr 2026); Sri Lanka BO Registry Module + BO1–BO7 forms (live 30 Mar 2026); Sweden legitimate interest (from 1 Jul 2026); Norway 17th BORIS jurisdiction; Ontario BO registry by 2027; Philippines public BO for procurement; St Helena Proton Drive register; 18 EU infringements (25 Sept 2026); Austria (5 Nov) and Ireland (10 Nov) legitimate interest; Latvia AS shareholders (9 Nov); Estonia's restriction postponed; Gibraltar, Bermuda, Jersey, Guernsey; Switzerland and Japan registers; Latin America closed registers; UK MLR 2026; Canada sanctions guidance; FATF low-capacity countries
+- **OpenCheck**: https://opencheck.world/ and the MCP connector; datasets at https://github.com/StephenAbbott/opencheck/releases
